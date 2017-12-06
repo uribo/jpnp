@@ -1,0 +1,24 @@
+Package: jpnp
+Type: Package
+Title: Data sets of Japanese National Parks
+Version: 0.1.0
+Authors@R: c(
+    person(given = "Shinya", family = "Uryu", email = "suika1127@gmail.com", role  = c("aut", "cre"), comment = c(ORCID = "0000-0002-0493-6186"))
+    )
+Maintainer: Shinya Uryu <suika1127@gmail.com>
+Description: Hogehoge. This package provide data sets were created by Shinya Uryu based on 
+  National Park Area of Biodiversity Center of Japan, Ministry of the Environment.
+Depends:
+  R (>= 2.10)
+Suggests:
+  dplyr,
+  magrittr,
+  purrr,
+  rvest,
+  sf,
+  stringr,
+  testthat  
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
