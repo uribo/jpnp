@@ -2,4 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
+*.pdf
 data-raw/nps
