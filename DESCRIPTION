@@ -1,5 +1,5 @@
-Package: jpnp
 Type: Package
+Package: jpnp
 Title: Data sets of Japanese National Parks
 Version: 0.1.0
 Authors@R: c(
@@ -8,17 +8,30 @@ Authors@R: c(
 Maintainer: Shinya Uryu <suika1127@gmail.com>
 Description: Hogehoge. This package provide data sets were created by Shinya Uryu based on 
   National Park Area of Biodiversity Center of Japan, Ministry of the Environment.
-Depends:
-  R (>= 2.10)
-Suggests:
-  dplyr,
-  magrittr,
-  purrr,
-  rvest,
-  sf,
-  stringr,
-  testthat  
+URL: https://github.com/uribo/jpnp#readme
+BugReports: https://github.com/uribo/jpnp/issues
 License: MIT + file LICENSE
+Depends: 
+    R (>= 2.10)
+Imports: 
+    dplyr (>= 0.7.4),
+    jpmesh (>= 1.0.1.9999),
+    magrittr (>= 1.5),
+    purrr (>= 0.2.4),
+    rlang (>= 0.1.6),
+    sf (>= 0.6.0),
+    tibble (>= 1.4.2),
+    tidyr (>= 0.8.0)
+Suggests: 
+    knitr (>= 1.19),
+    devtools (>= 1.13.4),
+    leaflet (>= 1.1.0),
+    rmarkdown (>= 1.8),
+    rvest (>= 0.3.2),
+    stringr (>= 1.2.0),
+    testthat (>= 2.0.0)
+VignetteBuilder: knitr
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1
+Remotes: uribo/jpmesh
+RoxygenNote: 6.1.1

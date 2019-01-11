@@ -1,0 +1,29 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+# jpnp
+
+[![Travis build status](https://travis-ci.org/uribo/jpnp.svg?branch=master)](https://travis-ci.org/uribo/jpnp)
+
+
+The goal of jpnp is to ...
+
+## Installation
+
+You can install jpnp from GitHub with:
+
+```{r gh-installation, eval = FALSE}
+# install.packages("remotes")
+remotes::install_github("uribo/jpnp")
+```

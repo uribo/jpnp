@@ -1,0 +1,46 @@
+---
+title: "Vignette Title"
+author: "Vignette Author"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r}
+library(jpnp)
+library(sf)
+library(leaflet)
+
+data(np, package = "jpnp")
+np_tgt <- np[1, ]
+res <- 
+  np_tgt %>% 
+  np_area_meshed(mesh_size = "10km")
+
+leaflet() %>% 
+  addTiles() %>% 
+  addPolygons(data = np_tgt) %>%
+  addPolygons(data = res)
+```
+
+```{r}
+np_tgt <- np[17, ]
+res <- 
+  np_tgt %>% 
+  np_area_meshed(mesh_size = "1km")
+
+leaflet() %>% 
+  addTiles() %>% 
+  addPolygons(data = np_tgt) %>%
+  addPolygons(data = res)
+```
