@@ -1,3 +1,6 @@
+^\.env$
+^docker-compose\.yml$
+^Dockerfile$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^data-raw$
