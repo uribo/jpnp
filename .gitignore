@@ -5,4 +5,5 @@
 .Ruserdata
 *.pdf
 data-raw/nps
+data-raw/nps_all
 inst/doc
