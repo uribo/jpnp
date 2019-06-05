@@ -1,4 +1,4 @@
-FROM rocker/geospatial:3.5.2
+FROM rocker/geospatial:3.6.0
 
 RUN set -x && \
   apt-get update && \
@@ -19,10 +19,12 @@ RUN set -x && \
 
 RUN set -x && \
   install2.r --error \
+    covr \
     here \
     jpmesh \
     rmarkdown \
     leaflet \
+    lintr \
     rvest \
     tabulizer \
     testthat \
