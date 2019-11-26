@@ -25,7 +25,7 @@ data(np, package = "jpnp")
 np_tgt <- np[1, ]
 res <- 
   np_tgt %>% 
-  np_area_meshed(mesh_size = "10km")
+  np_area_meshed(mesh_size = 10)
 
 leaflet() %>% 
   addTiles() %>% 
@@ -37,7 +37,7 @@ leaflet() %>%
 np_tgt <- np[17, ]
 res <- 
   np_tgt %>% 
-  np_area_meshed(mesh_size = "1km")
+  np_area_meshed(mesh_size = 1)
 
 leaflet() %>% 
   addTiles() %>% 

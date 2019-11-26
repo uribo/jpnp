@@ -3,16 +3,18 @@
 \docType{data}
 \name{np}
 \alias{np}
-\title{Japanese National Park Information Dataset}
-\format{A `sf` object contains 34 rows 2 variables:
+\title{Japanese National Park Area Dataset}
+\format{A `sf` object contains 183 rows 2 variables:
 \itemize{
   \item{name}
+  \item{name_en}
+  \item{area}
   \item{geometry}
 }}
 \source{
 Natural Environmental Information GIS (Biodiversity Center of Japan, Ministry of the Environment.)
 
-\url{http://www.biodic.go.jp/trialSystem/EN/info/nps.html}
+\url{http://gis.biodic.go.jp/webgis/sc-026.html?kind=nps}
 
 This data is modified from GIS data that national park area by Shinya Uryu.
 }
@@ -20,10 +22,10 @@ This data is modified from GIS data that national park area by Shinya Uryu.
 np
 }
 \value{
-\item{np}{a sf}
+\item{np}{a sf. The espg (SRID) is 4326. Combine into single polygon for each park and protection zone area category, namely MULTIPOLYGON.}
 }
 \description{
-Japan National Park Area
+Japan National Park Spatial Data.
 }
 \details{
 National Parks represent outstanding natural landscapes of Japan. The park lands are designated
@@ -33,8 +35,6 @@ The data includes names and classification attributes such as Special Protection
 Class I Special Zones, etc. Please see \url{https://www.env.go.jp/en/nature/nps/park/} the description of each zone.
 }
 \examples{
-\dontrun{
 np
-}
 }
 \keyword{datasets}

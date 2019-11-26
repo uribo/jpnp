@@ -4,12 +4,12 @@
 \alias{np_area_meshed}
 \title{Inside of National Park Meshes}
 \usage{
-np_area_meshed(d, mesh_size = c("10km", "1km"))
+np_area_meshed(df, mesh_size = c(1, 10))
 }
 \arguments{
-\item{d}{data (national park polygon)}
+\item{df}{data frame (national park polygon)}
 
-\item{mesh_size}{Which mesh size to output. Supports 10km and 1km.}
+\item{mesh_size}{Which mesh size to output. Supports 10 and 1km.}
 }
 \description{
 Inside of National Park Meshes
@@ -17,6 +17,6 @@ Inside of National Park Meshes
 \examples{
 \dontrun{
 data(np, package = "np")
-np[11, ] \%>\% np_area_meshed(mesh_size = "10km")
+np[11, ] \%>\% np_area_meshed(mesh_size = 10)
 }
 }
