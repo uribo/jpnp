@@ -1,7 +1,7 @@
 Type: Package
 Package: jpnp
 Title: Data sets of Japanese National Parks
-Version: 0.1.0
+Version: 0.1.0.9000
 Authors@R: c(
     person(given = "Shinya", family = "Uryu", email = "suika1127@gmail.com", role  = c("aut", "cre"), comment = c(ORCID = "0000-0002-0493-6186"))
     )
@@ -21,7 +21,7 @@ Imports:
     rlang (>= 0.1.6),
     sf (>= 0.6.0),
     tibble (>= 1.4.2),
-    tidyr (>= 0.8.0)
+    tidyr (>= 1.0.0)
 Suggests: 
     knitr (>= 1.19),
     devtools (>= 1.13.4),
@@ -33,5 +33,6 @@ Suggests:
 VignetteBuilder: knitr
 Encoding: UTF-8
 LazyData: true
-Remotes: uribo/jpmesh
-RoxygenNote: 6.1.1
+Remotes: 
+  uribo/jpmesh
+RoxygenNote: 7.0.1

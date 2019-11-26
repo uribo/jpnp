@@ -6,3 +6,5 @@
 *.pdf
 data-raw/nps*
 inst/doc
+*.xls
+*.xlsx
