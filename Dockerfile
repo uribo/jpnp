@@ -20,11 +20,13 @@ RUN set -x && \
 RUN set -x && \
   install2.r --error \
     covr \
+    googlePolylines \
     here \
     jpmesh \
     rmarkdown \
     leaflet \
     lintr \
+    lwgeom \
     rvest \
     tabulizer \
     testthat \

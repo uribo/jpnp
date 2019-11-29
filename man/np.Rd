@@ -9,7 +9,7 @@
   \item{name}
   \item{name_en}
   \item{area}
-  \item{geometry}
+  \item{geometry: compress by polyline encoding}
 }}
 \source{
 Natural Environmental Information GIS (Biodiversity Center of Japan, Ministry of the Environment.)
@@ -22,7 +22,7 @@ This data is modified from GIS data that national park area by Shinya Uryu.
 np
 }
 \value{
-\item{np}{a sf. The espg (SRID) is 4326. Combine into single polygon for each park and protection zone area category, namely MULTIPOLYGON.}
+\item{np}{a sfencoded The espg (SRID) is 4326. Combine into single polygon for each park and protection zone area category, namely MULTIPOLYGON.}
 }
 \description{
 Japan National Park Spatial Data.
@@ -36,5 +36,7 @@ Class I Special Zones, etc. Please see \url{https://www.env.go.jp/en/nature/nps/
 }
 \examples{
 np
+# Convert to sf
+sfencode_as_sf(np)
 }
 \keyword{datasets}

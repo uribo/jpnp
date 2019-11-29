@@ -1,13 +1,13 @@
 #' @title Japanese National Park Area Dataset
 #' @description Japan National Park Spatial Data.
 #' @docType data
-#' @return \item{np}{a sf. The espg (SRID) is 4326. Combine into single polygon for each park and protection zone area category, namely MULTIPOLYGON.}
+#' @return \item{np}{a sfencoded The espg (SRID) is 4326. Combine into single polygon for each park and protection zone area category, namely MULTIPOLYGON.}
 #' @format A `sf` object contains 183 rows 2 variables:
 #' \itemize{
 #'   \item{name}
 #'   \item{name_en}
 #'   \item{area}
-#'   \item{geometry}
+#'   \item{geometry: compress by polyline encoding}
 #' }
 #' @source Natural Environmental Information GIS (Biodiversity Center of Japan, Ministry of the Environment.)
 #'
@@ -22,6 +22,8 @@
 #' Class I Special Zones, etc. Please see \url{https://www.env.go.jp/en/nature/nps/park/} the description of each zone.
 #' @examples
 #' np
+#' # Convert to sf
+#' sfencode_as_sf(np)
 #' @keywords datasets
 "np"
 

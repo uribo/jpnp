@@ -22,6 +22,9 @@ library(sf)
 library(leaflet)
 
 data(np, package = "jpnp")
+np <-
+  np %>% 
+  sfencode_as_sf()
 np_tgt <- np[1, ]
 res <- 
   np_tgt %>% 

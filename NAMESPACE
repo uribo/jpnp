@@ -3,6 +3,7 @@
 export("%>%")
 export(browse_np)
 export(np_area_meshed)
+export(sfencode_as_sf)
 importFrom(dplyr,filter)
 importFrom(dplyr,pull)
 importFrom(dplyr,select)

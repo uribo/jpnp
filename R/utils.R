@@ -20,4 +20,17 @@ browse_np <- function(np) {
   utils::browseURL(url)
 }
 
+#' @title Convert sfencode to sf
+#' @param x sfencode
+#' @rdname sfencode_as_sf
+#' @examples
+#' sfencode_as_sf(np)
+#' @export
+sfencode_as_sf <- function(x) {
+  geometry <- NULL
+  googlePolylines::polyline_wkt(x) %>%
+    dplyr::mutate(geometry = sf::st_as_sfc(geometry)) %>%
+    sf::st_sf(crs = 4326)
+}
+
 utils::globalVariables(c("np_information"))
