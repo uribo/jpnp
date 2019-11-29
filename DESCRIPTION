@@ -18,9 +18,12 @@ Imports:
     jpmesh (>= 1.0.1.9999),
     magrittr (>= 1.5),
     purrr (>= 0.2.4),
+    readr,
+    readxl,
     rlang (>= 0.1.6),
     sf (>= 0.6.0),
     tibble (>= 1.4.2),
+    tidyselect,
     tidyr (>= 1.0.0)
 Suggests: 
     knitr (>= 1.19),
