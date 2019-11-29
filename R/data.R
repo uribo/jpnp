@@ -24,3 +24,10 @@
 #' np
 #' @keywords datasets
 "np"
+
+#' @title Japanese National Park Information
+#' @description Japan National Park Data.
+#' @docType data
+#' @examples
+#' np_information
+"np_information"

@@ -3,69 +3,68 @@
 ####################################
 library(rvest)
 library(tidyverse) # dplyr, readr, stringr
-library(testthat)
-if (dir.exists(here::here("data-raw")) != TRUE) {
+library(assertr)
+if (dir.exists("data-raw") != TRUE) {
   usethis::use_data_raw()
 }
-
-base_url <- "http://www.env.go.jp/nature/np/"
-
-x <-
-  read_html("http://www.env.go.jp/park/parks/index.html") %>%
-  html_nodes(css = 'body > div.l-wrapper > div.l-main > div > div > div.p-map.p-spot-map.u-center.u-mb50 > div.inner > a')
-
-df_np_list <-
-  tibble(
-    name_en = x %>%
-      html_attr("href") %>%
-      str_replace("../", "") %>%
-      str_replace("/index.html", ""),
-    name = x %>%
-      html_text() %>%
-      str_replace("[0-9]{0,2}", "") %>%
-      str_trim()) %>%
-  # nps_all.shp と合わせるために修正
-  mutate(name = recode(name,
-                       `霧島錦江` = "霧島錦江湾"))
-expect_equal(nrow(df_np_list), 34L)
-
-# 適宜必要な情報を追加していく
-# まだdata-rawで管理。最終的にはdataでパッケージのデータとして利用可能にする
-df_np_list %>%
-  write_csv(here::here("data-raw/np_list.csv"))
-
-# 陸域と海域
-# 慶良間, 奄美群島, 西表石垣, やんばる, 屋久島, 霧島錦江湾, 雲仙天草,
-# 西海, 足摺宇和海, 瀬戸内海, 大山隠岐, 山陰海岸, 吉野熊野, 伊勢志摩,
-# 富士箱根伊豆, 三陸復興, 利尻礼文サロベツ, 知床
-# ... 18
-
-####################################
-# [WIP] 指定年月日
-####################################
-if (file.exists("data-raw/国立_国定公園_指定年月日一覧.pdf") == FALSE) {
-  download.file("https://www.env.go.jp/nature/ari_kata/shiryou/031208-3-3.pdf",
-                "data-raw/国立_国定公園_指定年月日一覧.pdf")
+if (file.exists("data-raw/np_list.csv") == FALSE) {
+  x <-
+    read_html("http://www.env.go.jp/park/parks/index.html")
+  np_information <-
+    seq.int(7) %>%
+    purrr::map_dfr(
+      ~ tibble::tibble(
+        id = x %>%
+          html_nodes(css = glue::glue("#cont-accordion-{.x} > ul > li > div > div.c-number")) %>%
+          html_text() %>%
+          stringr::str_pad(width = 2, pad = "0"),
+        name = x %>%
+          html_nodes(css = glue::glue("#cont-accordion-{.x} > ul > li > a > span.item-bottom > span.name")) %>%
+          html_text(),
+        region = x %>%
+          html_nodes(css = glue::glue("#ttl-accordion-{.x} > a")) %>%
+          html_text(),
+        registered = x %>%
+          html_nodes(css = glue::glue("#cont-accordion-{.x} > ul > li > ul > li.data__date")) %>%
+          html_text() %>%
+          stringr::str_remove(".+：") %>%
+          stringr::str_remove("（.+）") %>%
+          lubridate::as_date(),
+        area = x %>%
+          html_nodes(css = glue::glue("#cont-accordion-{.x} > ul > li > ul > li.data__area")) %>%
+          html_text() %>%
+          stringr::str_remove(".+："),
+        prefecture = x %>%
+          html_nodes(css = glue::glue("#cont-accordion-{.x} > ul > li > ul > li.data__region")) %>%
+          html_text(),
+        url = x %>%
+          html_nodes(css = glue::glue("#cont-accordion-{.x} > ul > li > a")) %>%
+          html_attr("href") %>%
+          xml2::url_absolute(base = "http://www.env.go.jp/park/parks") %>%
+          stringr::str_replace("http://www.env.go.jp/", "http://www.env.go.jp/park/")
+      )) %>%
+    verify(dim(.) == c(36, 7)) %>%
+    mutate(area = recode(name,
+                         `瀬戸内海国立公園` = "近畿地区, 中国四国地区, 九州地区",
+                         .default = area)) %>%
+    distinct(id, .keep_all = TRUE) %>%
+    verify(dim(.) == c(34, 7)) %>%
+    arrange(id) %>%
+    mutate(name = stringr::str_remove(name, "国立公園"),
+           name_en = stringr::str_remove(url,
+                                "http://www.env.go.jp/park/") %>%
+             stringr::str_remove("/index.html") %>%
+             stringr::str_to_title())
+  np_information <-
+    np_information %>%
+    select(id, name, name_en, region, registered, area, prefecture, url) %>%
+    tidyr::separate_rows(prefecture, sep = "\u30fb") %>%
+    group_by(name) %>%
+    tidyr::nest(prefs = c(prefecture)) %>%
+    ungroup() %>%
+    verify(dim(.) == c(34, 8))
+  np_information %>%
+    tidyr::unnest(cols = prefs) %>%
+    verify(nrow(.) == 82L)
+  usethis::use_data(np_information, overwrite = TRUE)
 }
-
-df_list <-
-  tabulizer::extract_tables(here::here("data-raw/国立_国定公園_指定年月日一覧.pdf"),
-                                     pages = 1,
-                            # listをdafa.frameにするのでmatrix
-                                     output = "matrix") %>%
-  as.data.frame() %>%
-  mutate_all(na_if, y = "") %>%
-  mutate_all(as.character)
-
-names(df_list) <- df_list[1, ] %>% c()
-df_list <-
-  df_list %>%
-  slice(-1L) %>%
-  select(-3) %>%
-  rlang::set_names(c("date", "name")) %>%
-  mutate(name = str_replace(name, "\\r", "")) %>%
-  tidyr::separate(col = "name", into = c("np1", "np2", "np3", "np4"),
-                  sep = "・") %>%
-  tidyr::gather(key = "np", "name", -date) %>%
-  select(-np) %>%
-  filter(!is.na(name))
