@@ -1,4 +1,4 @@
-FROM rocker/geospatial:3.6.1
+FROM rocker/geospatial:3.6.2
 
 RUN set -x && \
   apt-get update && \
@@ -18,11 +18,10 @@ RUN set -x && \
   echo "GITHUB_PAT=$GITHUB_PAT" >> /usr/local/lib/R/etc/Renviron
 
 RUN set -x && \
-  install2.r --error --skipinstalled --repos 'http://mran.revolutionanalytics.com/snapshot/2019-12-09' \
+  install2.r --error --skipinstalled --repos 'http://mran.revolutionanalytics.com/snapshot/2020-01-15' \
     covr \
     googlePolylines \
     here \
-    jpmesh \
     rmarkdown \
     leaflet \
     lintr \
@@ -34,4 +33,3 @@ RUN set -x && \
   installGithub.r \
     uribo/jpmesh && \
   rm -rf /tmp/downloaded_packages/ /tmp/*.rds
-
